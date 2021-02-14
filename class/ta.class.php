@@ -3,13 +3,21 @@ class Ta {
     public $conn;
     
     public function __construct() {
-        require('/www/wwwroot/'.$_SERVER['SERVER_NAME'].'/MySql.php');
+        if ($_SERVER['HTTP_HOST'] == 'localhost') {
+            require_once('/Applications/phpstudy/WWW/weibo/MySql.php');
+        } else {
+            require_once('/www/wwwroot/'.$_SERVER['SERVER_NAME'].'/MySql.php');
+        }
         
         $this->conn = new mysqli($servername, $username, $password, $dbname);
     }
     
     public function get_ta_info($wb) {
-        require_once('/www/wwwroot/'.$_SERVER['SERVER_NAME'].'/curl.php');
+        if ($_SERVER['HTTP_HOST'] == 'localhost') {
+            require_once('/Applications/phpstudy/WWW/weibo/curl.php');
+        } else {
+            require_once('/www/wwwroot/'.$_SERVER['SERVER_NAME'].'/curl.php');
+        }
         preg_match('/[a-zA-z]+:\/\/[^\s]*/', $wb, $url);
         if (preg_match('/weibo.com/', $url[0]) == 1) {
             preg_match('/[0-9]+/', $wb, $uid);

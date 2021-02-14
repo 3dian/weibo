@@ -47,7 +47,11 @@ class chaohua {
     
     // 获取关注的超话
     private function get_chaohua(){
-        require_once('/www/wwwroot/'.$_SERVER['SERVER_NAME'].'/curl.php');
+        if ($_SERVER['HTTP_HOST'] == 'localhost') {
+            require_once('/Applications/phpstudy/WWW/weibo/curl.php');
+        } else {
+            require_once('/www/wwwroot/'.$_SERVER['SERVER_NAME'].'/curl.php');
+        }
         $chaohua_info = json_decode(get_url($this->host.'/2/cardlist?c='.$this->c.'&containerid='.$this->containerid.'&gsid='.$this->gsid.'&s='.$this->s.'&from='.$this->from), true);
         $chaohua = $chaohua_info['cards'][0]['card_group'];
         if (is_array($chaohua)) {
