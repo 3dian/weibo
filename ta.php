@@ -10,7 +10,7 @@ $zp = $_GET['zp'];
 $new = $_GET['new'];
 
 $ta = new Ta();
-$res = $ta->get_ta_info($wb);
+$res = $ta->getTaInfo($wb);
 if ($server) {
     $server = substr($server, -1) == '/' ? $server : $server.'/';
     $uid = $res['data']['uid'];

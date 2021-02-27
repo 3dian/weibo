@@ -14,9 +14,9 @@ class chaohua {
         $this->from = $from;
     }
     
-    public function sign_in() {
-        if ($this->get_chaohua()['code'] == 200) {
-            $chaohua = $this->get_chaohua()['data'];
+    public function signIn() {
+        if ($this->getChaohua()['code'] == 200) {
+            $chaohua = $this->getChaohua()['data'];
             for ($i = 0; $i < count($chaohua); $i++) {
                 $title = $chaohua[$i]['title_sub'];
                 preg_match('/(?<=containerid=)[A-Za-z0-9]+/', $chaohua[$i]['scheme'], $pageid);
@@ -40,13 +40,13 @@ class chaohua {
                 'msg' => '批量签到完成'
             );
         } else {
-            $res = $this->get_chaohua();
+            $res = $this->getChaohua();
         }
         return $res;
     }
     
     // 获取关注的超话
-    private function get_chaohua(){
+    private function getChaohua(){
         if ($_SERVER['HTTP_HOST'] == 'localhost') {
             require_once('/Applications/phpstudy/WWW/weibo/curl.php');
         } else {

@@ -12,19 +12,19 @@ class resou {
         $this->conn = new mysqli($servername, $username, $password, $dbname);
     }
     
-    public function mactch_resou($kw, $server) {
+    public function mactchResou($kw, $server) {
         if ($kw) {
-            if ($this->get_resou()['code'] == 200) {
+            if ($this->getResou()['code'] == 200) {
                 $kw_arr = explode(',', $kw);
                 for ($i = 0; $i < count($kw_arr); $i++) {
-                    $sql = "select `desc`, update_time from weibo_resou where server = '$server'";
+                    $sql = "select `desc`, updateTime from weibo_resou where server = '$server'";
                     $results = $this->conn->query($sql);
                     while($row = $results->fetch_assoc()) {
-                        $pushed[date('Ymd', strtotime($row['update_time']))][] = $row['desc'];
+                        $pushed[date('Ymd', strtotime($row['updateTime']))][] = $row['desc'];
                     }
                 }
                 $total = 0;
-                $resou = $this->get_resou()['data'];
+                $resou = $this->getResou()['data'];
                 $today = $pushed[date('Ymd')] ? $pushed[date('Ymd')] : [];
                 
                 for ($i = 0; $i < count($resou); $i++) {
@@ -55,7 +55,7 @@ class resou {
                     'msg' => '匹配热搜成功'
                 );
             } else {
-                $res = $this->get_resou();
+                $res = $this->getResou();
             }
         } else {
             $res = array(
@@ -67,7 +67,7 @@ class resou {
     }
     
     // 获取热搜
-    private function get_resou(){
+    private function getResou(){
         if ($_SERVER['HTTP_HOST'] == 'localhost') {
             require_once('/Applications/phpstudy/WWW/weibo/curl.php');
         } else {

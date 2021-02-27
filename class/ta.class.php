@@ -3,16 +3,12 @@ class Ta {
     public $conn;
     
     public function __construct() {
-        if ($_SERVER['HTTP_HOST'] == 'localhost') {
-            require_once('/Applications/phpstudy/WWW/weibo/MySql.php');
-        } else {
-            require_once('/www/wwwroot/'.$_SERVER['SERVER_NAME'].'/MySql.php');
-        }
+        require('/www/wwwroot/'.$_SERVER['SERVER_NAME'].'/MySql.php');
         
         $this->conn = new mysqli($servername, $username, $password, $dbname);
     }
     
-    public function get_ta_info($wb) {
+    public function getTaInfo($wb) {
         if ($_SERVER['HTTP_HOST'] == 'localhost') {
             require_once('/Applications/phpstudy/WWW/weibo/curl.php');
         } else {
@@ -35,7 +31,7 @@ class Ta {
                 $created_at = $user_info['created_at']; // 注册时间
                 $vid = $user_info['status']['id']; // 微博ID
                 
-                $description_encode = $this->emoji_encode($description);
+                $description_encode = $this->emojiEncode($description);
                 $created_at = date("Y-m-d H:i:s", strtotime($created_at));
                 $gender = $gender == '男' ? 1 : 2;
                 
@@ -119,7 +115,7 @@ class Ta {
     }
     
     //对emoji表情转义
-    private function emoji_encode($str){
+    private function emojiEncode($str){
         $strEncode = '';
      
         $length = mb_strlen($str,'utf-8');
@@ -137,7 +133,7 @@ class Ta {
     }
     
     //对emoji表情转反义
-    private function emoji_decode($str){
+    private function emojiDecode($str){
         $strDecode = preg_replace_callback('|\[\[EMOJI:(.*?)\]\]|', function($matches){  
             return rawurldecode($matches[1]);
         }, $str);

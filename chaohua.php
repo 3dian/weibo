@@ -9,7 +9,7 @@ $s = $_GET['s'];
 $from = $_GET['from'];
 
 $chaohua = new Chaohua($containerid, $gsid, $s, $from);
-$res = $chaohua->sign_in();
+$res = $chaohua->signIn();
 if ($server && $res['code'] != 200) {
     get_url($server.'微博超话批量签到/'.$res['msg']);
 }

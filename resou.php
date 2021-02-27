@@ -6,7 +6,7 @@ $server = $_GET['server'];
 $kw = $_GET['kw'];
 
 $resou = new Resou();
-$res = $resou->mactch_resou($kw, $server);
+$res = $resou->mactchResou($kw, $server);
 
 if ($server && $res['data']['result'] != null) {
     $result = $res['data']['result'];
